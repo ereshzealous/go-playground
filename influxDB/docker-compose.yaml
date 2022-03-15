@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  influxdb:
+    hostname: influxdb
+    image: quay.io/influxdb/influxdb:v2.0.3
+    container_name: influxdb
+    ports:
+      - '8099:8086'
+    volumes:
+      - influxdb-storage2_0:/var/lib/influxdb2_0
+    environment:
+      INFLUXD_QUERY_CONCURRENCY: 100
+      INFLUXDB_HTTP_MAX_BODY_SIZE: 2500000000
+      INFLUXD_QUERY_QUEUE_SIZE: 200
+
+volumes:
+  influxdb-storage2_0:

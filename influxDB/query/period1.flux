@@ -1,0 +1,7 @@
+from(bucket: "akasztenny's Bucket")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r["_measurement"] == "ticks")
+    |> filter(fn: (r) => r["_field"] == "price")
+    |> filter(fn: (r) => r["product"] == "BHMM/USD")
+    |> aggregateWindow(every: 1m, fn: max, createEmpty: false)
+    |> yield(name: "max")

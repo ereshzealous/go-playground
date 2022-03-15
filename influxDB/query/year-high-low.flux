@@ -1,0 +1,7 @@
+from(bucket: "akasztenny's Bucket")
+    |> range(start: -2M, stop: -1M)
+    |> filter(fn: (r) => r["_measurement"] == "ticks")
+    |> filter(fn: (r) => r["_field"] == "price")
+    |> filter(fn: (r) => r["product"] == "BHMM/USD")
+    |> aggregateWindow(every: 1w, fn: candle, createEmpty: false)
+    |> keep(columns: ["open", "high", "low", "close", "count"])

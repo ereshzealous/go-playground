@@ -1,0 +1,16 @@
+from(bucket: "local")
+  |> range(start: -30d)
+  |> filter(fn: (r) => r["_measurement"] == "ticks")
+  |> filter(fn: (r) => r["_field"] == "price")
+  |> filter(fn: (r) => r["product"] == "AGUX/USD")
+  |> aggregateWindow(every: 30d, fn: max, createEmpty: false)
+  |> yield(name: "max")
+
+from(bucket: "local")
+  |> range(start: -30d)
+  |> filter(fn: (r) => r["_measurement"] == "ticks")
+  |> filter(fn: (r) => r["_field"] == "price")
+  |> filter(fn: (r) => r["product"] == "AEBC/USD")
+  |> aggregateWindow(every: 30d, fn: min, createEmpty: false)
+  |> yield(name: "min")
+
